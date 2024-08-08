@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react"
-import { graphql, useStaticQuery, Link, navigate } from "gatsby"
+import { graphql, useStaticQuery, Link } from "gatsby"
 
 const Categories = ({ categoryId }) => {
   const data = useStaticQuery(graphql`
@@ -36,7 +36,7 @@ const Categories = ({ categoryId }) => {
   }
 
   return (
-    <div className="shadow-md">
+    <div className="shadow-md sticky top-0 bg-white z-10">
       <div className="container py-3 flex gap-6 overflow-auto">
         {categories.map(({ node }, index) => (
           <Link

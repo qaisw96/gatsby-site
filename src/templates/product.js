@@ -14,7 +14,7 @@ const Product = ({ data, pageContext }) => {
   return (
     <Layout>
       <div
-        className="container flex py-14 justify-center gap-8"
+        className="container flex flex-col md:flex-row py-14 justify-center gap-8"
         style={{ justifyContent: "center" }}
       >
         <div className="flex-1">

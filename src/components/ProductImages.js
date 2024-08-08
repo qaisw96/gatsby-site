@@ -18,7 +18,7 @@ const ProductImages = ({ images }) => {
         <GatsbyImage
           image={getImage(selectedImage)}
           alt="Product Image"
-          className="w-[400px] h-[400px] rounded-md"
+          className="w-full md:w-[400px] md:h-[400px] rounded-md"
         />
       </motion.div>
 

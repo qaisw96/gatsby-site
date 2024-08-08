@@ -9,7 +9,7 @@ const Header = ({ siteTitle }) => (
   <header className="bg-primary py-2">
     <div className="container flex justify-between items-center">
       <div className="md:hidden">
-        <AiOutlineMenu size={30} color="white" />
+        <IoIosSearch size={30} color="white" />
       </div>
       <Link to="/" className="flex gap-2 items-center">
         <MdStorefront size={28} color="white" />
