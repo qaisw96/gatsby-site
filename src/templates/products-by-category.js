@@ -3,6 +3,7 @@ import { graphql } from "gatsby"
 import Products from "../components/Products"
 import Layout from "../components/layout"
 import Categories from "../components/Categories"
+import Empty from "../components/Empty"
 
 const ProductsByCategoryPage = ({ data, pageContext }) => {
   const products = data.allContentfulProducts.edges
@@ -12,7 +13,7 @@ const ProductsByCategoryPage = ({ data, pageContext }) => {
   return (
     <Layout>
       <Categories categoryId={categoryId} />
-      <Products products={products} />
+      {products.length === 0 ? <Empty /> : <Products products={products} />}
     </Layout>
   )
 }
@@ -25,7 +26,7 @@ export const query = graphql`
           id
           title
           price
-          image {
+          images {
             gatsbyImageData(layout: CONSTRAINED, width: 300)
           }
         }

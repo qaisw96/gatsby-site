@@ -1,19 +1,29 @@
 import React from "react"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import { Link } from "gatsby"
+import { motion } from "framer-motion"
 
 const Products = ({ products }) => {
+  console.log({ products })
   return (
-    <div className="container grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 py-12">
+    <div className="container grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 py-20">
       {[...products, ...products, ...products].map(({ node }) => (
-        <div key={node.id} className="bg-white rounded-md">
-          {node.image && (
-            <div>
+        <motion.div
+          key={node.id}
+          className="bg-white rounded-md"
+          // className="w-full mb-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          {node.images && (
+            <Link to={`/products/${node.id}`}>
               <GatsbyImage
-                image={getImage(node.image)}
+                image={getImage(node.images[0])}
                 alt={node.title}
                 className="w-full"
               />
-            </div>
+            </Link>
           )}
           <div className="p-4">
             <h2 className="">{node.title}</h2>
@@ -24,7 +34,7 @@ const Products = ({ products }) => {
               <button className="text-sm rounded-sm">أضف للمشتريات</button>
             </div>
           </div>
-        </div>
+        </motion.div>
       ))}
     </div>
   )

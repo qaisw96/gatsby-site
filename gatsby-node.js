@@ -3,8 +3,7 @@ const path = require("path")
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
 
-  // Query all categories to create pages
-  const result = await graphql(`
+  const categoryResult = await graphql(`
     {
       allContentfulCategories {
         edges {
@@ -16,8 +15,8 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   `)
 
-  if (result.errors) {
-    console.error(result.errors)
+  if (categoryResult.errors) {
+    console.error(categoryResult.errors)
     return
   }
 
@@ -25,12 +24,41 @@ exports.createPages = async ({ graphql, actions }) => {
     "./src/templates/products-by-category.js"
   )
 
-  result.data.allContentfulCategories.edges.forEach(({ node }) => {
+  categoryResult.data.allContentfulCategories.edges.forEach(({ node }) => {
     createPage({
       path: `/products-by-category/${node.id}`,
       component: categoryTemplate,
       context: {
         categoryId: node.id,
+      },
+    })
+  })
+
+  const productResult = await graphql(`
+    {
+      allContentfulProducts {
+        edges {
+          node {
+            id
+          }
+        }
+      }
+    }
+  `)
+
+  if (productResult.errors) {
+    console.error(productResult.errors)
+    return
+  }
+
+  const productTemplate = path.resolve("./src/templates/product.js")
+
+  productResult.data.allContentfulProducts.edges.forEach(({ node }) => {
+    createPage({
+      path: `/products/${node.id}`,
+      component: productTemplate,
+      context: {
+        productId: node.id,
       },
     })
   })

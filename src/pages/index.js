@@ -7,6 +7,7 @@ import Layout from "../components/layout"
 import Seo from "../components/seo"
 import Categories from "../components/Categories"
 import Products from "../components/Products"
+import Empty from "../components/Empty"
 
 const IndexPage = ({ data }) => {
   const categories = data.allContentfulCategories.edges
@@ -16,7 +17,7 @@ const IndexPage = ({ data }) => {
   return (
     <Layout>
       <Categories />
-      <Products products={products} />
+      {products.length === 0 ? <Empty /> : <Products products={products} />}
     </Layout>
   )
 }
@@ -39,10 +40,10 @@ export const query = graphql`
         node {
           id
           title
-          price
-          image {
+          images {
             gatsbyImageData(layout: CONSTRAINED, width: 300)
           }
+          price
           categoryId {
             id
             name
