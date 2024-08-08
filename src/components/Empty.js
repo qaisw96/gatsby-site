@@ -1,6 +1,10 @@
+// src/components/Empty.js
 import React from "react"
 
-const Empty = () => {
+const Empty = ({
+  title = "لا توجد منتجات في هذه الفئة",
+  message = "يرجى التحقق من فئة أخرى أو الرجوع لاحقاً.",
+}) => {
   return (
     <div className="flex flex-col justify-center items-center h-screen mt-[-100px]">
       <svg
@@ -17,12 +21,8 @@ const Empty = () => {
           d="M3 7h18M3 12h18M3 17h18M5 7v10M19 7v10"
         ></path>
       </svg>
-      <h1 className="text-2xl font-semibold text-gray-600">
-        لا توجد منتجات في هذه الفئة
-      </h1>
-      <p className="text-gray-500 mt-2">
-        يرجى التحقق من فئة أخرى أو الرجوع لاحقاً.
-      </p>
+      <h1 className="text-2xl font-semibold text-gray-600">{title}</h1>
+      <p className="text-gray-500 mt-2">{message}</p>
     </div>
   )
 }
