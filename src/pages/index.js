@@ -8,6 +8,7 @@ import Seo from "../components/seo"
 import Categories from "../components/Categories"
 import Products from "../components/Products"
 import Empty from "../components/Empty"
+import ProductList from "../components/ProductList"
 
 const IndexPage = ({ data, location }) => {
   const urlParams = new URLSearchParams(location.search)
@@ -18,7 +19,7 @@ const IndexPage = ({ data, location }) => {
   return (
     <Layout>
       <Categories />
-      {products.length === 0 ? <Empty /> : <Products products={products} />}
+      {products.length === 0 ? <Empty /> : <ProductList products={products} />}
     </Layout>
   )
 }

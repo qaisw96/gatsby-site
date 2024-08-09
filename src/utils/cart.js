@@ -61,6 +61,7 @@ export const getProductFromCart = productId => {
 }
 
 export const updateCartQuantity = (productId, change) => {
+  console.log({productId, change})
   if (typeof window !== "undefined") {
     const cart = getCart()
     const updatedCart = cart

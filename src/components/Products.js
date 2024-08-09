@@ -80,7 +80,7 @@ const Products = ({ products }) => {
                 <div className="text-center relative">
                   <button
                     className={`text-sm rounded-sm mt-2 py-3 w-full ${
-                      isInCart ? "bg-primary text-white" : "bg-secondary"
+                      isInCart ? "bg-primary text-white" : "bg-third"
                     }`}
                     onClick={() =>
                       isInCart ? handleRemove(node.id) : handleAddToCart(node)
@@ -102,7 +102,7 @@ const Products = ({ products }) => {
                       } transition-opacity duration-300`}
                     >
                       <motion.button
-                        className="text-white bg-slate-400 px-2 rounded-sm h-fit mt-2"
+                        className="text-white bg-secondary px-2 rounded-sm h-fit mt-2"
                         initial={{ x: window.innerWidth < 768 ? 0 : "100%" }}
                         animate={{ x: 0 }}
                         onClick={() => handleQuantityChange(node.id, 1)}
@@ -110,7 +110,7 @@ const Products = ({ products }) => {
                         +
                       </motion.button>
                       <motion.button
-                        className="text-white bg-slate-400 px-2 rounded-sm h-fit mt-2"
+                        className="text-white bg-secondary px-2 rounded-sm h-fit mt-2"
                         initial={{ x: window.innerWidth < 768 ? 0 : "-100%" }}
                         animate={{ x: 0 }}
                         onClick={() => handleQuantityChange(node.id, -1)}

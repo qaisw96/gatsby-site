@@ -28,10 +28,7 @@ const Alert = ({ message, onClose }) => {
         transition={{ duration: 0.5 }}
       >
         <p>{message}</p>
-        <button
-          onClick={handleGoToCart}
-          className="mt-2 text-secondary underline"
-        >
+        <button onClick={handleGoToCart} className="mt-2 text-third underline">
           انتقل إلى السلة
         </button>
       </motion.div>

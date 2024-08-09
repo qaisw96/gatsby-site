@@ -5,9 +5,21 @@ import { IoIosSearch } from "react-icons/io"
 import { FaCartShopping } from "react-icons/fa6"
 import { motion, AnimatePresence } from "framer-motion"
 import { useLocation } from "@reach/router"
-import { getCart, setCart } from "../utils/cart"
+import { getCart } from "../utils/cart"
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import { useStaticQuery, graphql } from "gatsby"
 
 const Header = () => {
+  const data = useStaticQuery(graphql`
+    query {
+      logo: file(relativePath: { eq: "logo.jpg" }) {
+        childImageSharp {
+          gatsbyImageData(width: 100, layout: CONSTRAINED, placeholder: BLURRED)
+        }
+      }
+    }
+  `)
+
   const location = useLocation()
   const urlParams = new URLSearchParams(location.search)
   const query = urlParams.get("query")
@@ -35,6 +47,9 @@ const Header = () => {
     setIsMobileSearchVisible(prev => !prev)
   }
 
+  // Get the image data for the logo
+  const logoImage = getImage(data.logo)
+
   return (
     <header className="bg-primary py-2">
       <div className="container flex justify-between items-center">
@@ -47,13 +62,15 @@ const Header = () => {
           />
         </div>
         <Link to="/" className="flex gap-2 items-center">
-          <MdStorefront size={28} color="white" />
-          <h1 className="text-white text-xl">4 Store</h1>
+          {/* <MdStorefront size={28} color="white" /> */}
+          {logoImage && (
+            <GatsbyImage image={logoImage} alt="Logo" className="w-16 h-auto" />
+          )}
         </Link>
         <div className="relative items-center hidden md:flex">
           <form onSubmit={handleSearch} className="flex items-center">
             <input
-              className="h-12 rounded-sm px-4 w-[270px] bg-secondary"
+              className="h-12 rounded-sm px-4 w-[270px] bg-third"
               placeholder="ابحث عما تريد"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
@@ -73,26 +90,18 @@ const Header = () => {
         >
           {/* <h3 className="text-white md:hidden">{cartItems.length}</h3> */}
           <div className="p-2 rounded-sm h-full relative">
-            <span className="w-3 h-3 bg-red-400 absolute rounded-full" />
+            <span className="w-3 h-3 bg-[#07b5ff] absolute rounded-full" />
             <FaCartShopping size={25} color="white" />
           </div>
-
-          {/* <div className="hidden md:block">
-            <h3 className="text-white">سسلة المشتريات</h3>
-            <h4 className="text-white">
-              {cartItems.length} منتج - {amount} دينار
-            </h4>
-          </div> */}
         </Link>
       </div>
-      {/* Mobile Search Input */}
       <AnimatePresence>
         {(isMobileSearchVisible || query) && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="sticky top-0 z-50 md:hidden bg-secondary"
+            className="sticky top-0 z-50 md:hidden bg-third"
           >
             <form
               onSubmit={handleSearch}
