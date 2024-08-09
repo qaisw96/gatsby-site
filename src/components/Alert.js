@@ -9,7 +9,7 @@ const Alert = ({ message, onClose }) => {
     const timer = setTimeout(() => {
       setVisible(false)
       onClose()
-    }, 10000) // 10 seconds
+    }, 7000) // 3 seconds for faster response
 
     return () => clearTimeout(timer)
   }, [onClose])
@@ -21,7 +21,7 @@ const Alert = ({ message, onClose }) => {
   return (
     visible && (
       <motion.div
-        className="fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-md shadow-lg z-50"
+        className="fixed bottom-4 right-4 bg-green-500 text-white px-10 py-2 rounded-md shadow-lg z-50"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}

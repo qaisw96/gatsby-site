@@ -12,7 +12,7 @@ const OrderForm = ({ onSubmit, loading }) => {
   }
 
   return (
-    <form onSubmit={handleOrderSubmit} className="mt-4 md:w-1/2">
+    <form onSubmit={handleOrderSubmit} className="mt-4 md:w-1/2 py-6">
       <div className="mb-4">
         <label className="block text-sm font-medium text-gray-700">الاسم</label>
         <input
@@ -44,10 +44,7 @@ const OrderForm = ({ onSubmit, loading }) => {
           required
         />
       </div>
-      <button
-        type="submit"
-        className="bg-blue-500 text-white py-2 px-4 rounded"
-      >
+      <button type="submit" className="bg-primary text-white py-2 px-4 rounded">
         {loading ? "جاري إرسال الطلب..." : "إرسال الطلب"}
       </button>
     </form>

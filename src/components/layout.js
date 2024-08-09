@@ -7,6 +7,7 @@
 
 import * as React from "react"
 import { useStaticQuery, graphql } from "gatsby"
+import { PiWhatsappLogoThin } from "react-icons/pi"
 
 import Header from "./header"
 import "./layout.css"
@@ -36,6 +37,12 @@ const Layout = ({ children }) => {
         <main>{children}</main>
         <Footer />
       </div>
+      <a
+        href="https://wa.me/+962799771554"
+        className="block sticky bottom-4 mr-4 md:bottom-12 md:mr-12 bg-green-400 p-2 w-fit rounded-full"
+      >
+        <PiWhatsappLogoThin size={40} />
+      </a>
     </>
   )
 }

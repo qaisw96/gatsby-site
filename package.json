@@ -5,6 +5,7 @@
   "version": "0.1.0",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
+    "@contentful/rich-text-react-renderer": "^15.22.9",
     "dotenv": "^16.4.5",
     "framer-motion": "^11.3.24",
     "gatsby": "^5.13.5",

@@ -21,7 +21,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="text-center py-3">
+      <div className="text-center py-3 bg-secondary">
         <p className="text-[#3e4756]">جميع الحقوق محفوظة © 2024</p>
       </div>
     </div>

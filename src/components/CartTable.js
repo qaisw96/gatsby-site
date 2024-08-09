@@ -15,7 +15,7 @@ const CartTable = ({ cartItems, handleRemove }) => {
       <tbody>
         {cartItems.map(item => (
           <tr key={item.id}>
-            <td className="border p-2">
+            <td className="border p-2 relative">
               {item.images && (
                 <GatsbyImage
                   image={getImage(item.images[0])}
@@ -23,6 +23,9 @@ const CartTable = ({ cartItems, handleRemove }) => {
                   className="w-16 h-16"
                 />
               )}
+              <span className="absolute top-0 right-1 md:right-16 rounded-full p-1 bg-slate-300 w-7 h-7 text-center mb-[-3]">
+                {item.quantity}
+              </span>
             </td>
             <td className="border p-2">{item.title}</td>
             <td className="border p-2">{item.price} دينار</td>
