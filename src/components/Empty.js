@@ -4,9 +4,15 @@ import React from "react"
 const Empty = ({
   title = "لا توجد منتجات في هذه الفئة",
   message = "يرجى التحقق من فئة أخرى أو الرجوع لاحقاً.",
+  style,
 }) => {
   return (
-    <div className="flex flex-col justify-center items-center h-screen mt-[-100px]">
+    <div
+      className={
+        "flex flex-col justify-center items-center h-screen mt-[-100px] " +
+        style
+      }
+    >
       <svg
         className="w-16 h-16 mb-4 text-gray-400"
         fill="none"

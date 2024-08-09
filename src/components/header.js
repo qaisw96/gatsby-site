@@ -1,11 +1,11 @@
-import * as React from "react"
+import React, { useEffect, useState } from "react"
 import { Link, navigate } from "gatsby"
-import { useState } from "react"
 import { MdStorefront } from "react-icons/md"
 import { IoIosSearch } from "react-icons/io"
 import { FaCartShopping } from "react-icons/fa6"
 import { motion, AnimatePresence } from "framer-motion"
 import { useLocation } from "@reach/router"
+import { getCart, setCart } from "../utils/cart"
 
 const Header = props => {
   const location = useLocation()
@@ -14,6 +14,13 @@ const Header = props => {
 
   const [searchQuery, setSearchQuery] = useState(query || "")
   const [isMobileSearchVisible, setIsMobileSearchVisible] = useState(false)
+  const [cartItems, setCartItems] = useState(getCart())
+
+  const amount = cartItems.reduce((total, item) => total + item.price, 0)
+
+  useEffect(() => {
+    setCartItems(getCart())
+  }, [])
 
   const handleSearch = e => {
     e.preventDefault()
@@ -60,17 +67,22 @@ const Header = props => {
             </button>
           </form>
         </div>
-        <div className="flex md:gap-2 p-1 md:py-2 md:px-3 items-center bg-[rgba(0,0,0,.2)]">
-          <h3 className="text-white md:hidden">4</h3>
+        <Link
+          to={"/cart"}
+          className="flex md:gap-2 p-1 md:py-2 md:px-3 items-center bg-[rgba(0,0,0,.2)]"
+        >
+          <h3 className="text-white md:hidden">{cartItems.length}</h3>
           <div className="p-2 rounded-sm h-full">
             <FaCartShopping size={25} color="white" />
           </div>
 
-          <div className="hidden md:block">
+          {/* <div className="hidden md:block">
             <h3 className="text-white">سسلة المشتريات</h3>
-            <h4 className="text-white">0 منتج - 0 دينار</h4>
-          </div>
-        </div>
+            <h4 className="text-white">
+              {cartItems.length} منتج - {amount} دينار
+            </h4>
+          </div> */}
+        </Link>
       </div>
       {/* Mobile Search Input */}
       <AnimatePresence>
