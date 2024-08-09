@@ -30,7 +30,7 @@ const Alert = ({ message, onClose }) => {
         <p>{message}</p>
         <button
           onClick={handleGoToCart}
-          className="mt-2 text-blue-200 underline"
+          className="mt-2 text-secondary underline"
         >
           انتقل إلى السلة
         </button>

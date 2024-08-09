@@ -9,10 +9,11 @@ import Categories from "../components/Categories"
 import Products from "../components/Products"
 import Empty from "../components/Empty"
 
-const IndexPage = ({ data }) => {
-  const categories = data.allContentfulCategories.edges
+const IndexPage = ({ data, location }) => {
+  const urlParams = new URLSearchParams(location.search)
+  const cart = urlParams.get("cart")
+
   const products = data.allContentfulProducts.edges
-  console.log({ categories })
 
   return (
     <Layout>
@@ -24,17 +25,6 @@ const IndexPage = ({ data }) => {
 
 export const query = graphql`
   query {
-    allContentfulCategories {
-      edges {
-        node {
-          id
-          name
-          products {
-            id
-          }
-        }
-      }
-    }
     allContentfulProducts {
       edges {
         node {
