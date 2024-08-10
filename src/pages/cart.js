@@ -99,7 +99,7 @@ const Cart = () => {
 
   return (
     <Layout>
-      <div className="container py-20 min-h-screen">
+      <div className="container py-10 md:py-20 min-h-screen">
         <h1 className="text-2xl font-bold mb-8">سلة المشتريات</h1>
         {cartItems.length ? (
           <>

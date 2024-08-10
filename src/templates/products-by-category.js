@@ -4,6 +4,7 @@ import Products from "../components/Products"
 import Layout from "../components/layout"
 import Categories from "../components/Categories"
 import Empty from "../components/Empty"
+import ProductList from "../components/ProductList"
 
 const ProductsByCategoryPage = ({ data, pageContext }) => {
   const products = data.allContentfulProducts.edges
@@ -13,7 +14,7 @@ const ProductsByCategoryPage = ({ data, pageContext }) => {
   return (
     <Layout>
       <Categories categoryId={categoryId} />
-      {products.length === 0 ? <Empty /> : <Products products={products} />}
+      {products.length === 0 ? <Empty /> : <ProductList products={products} />}
     </Layout>
   )
 }

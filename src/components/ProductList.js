@@ -45,7 +45,7 @@ const ProductList = ({ products }) => {
       {alertMessage && (
         <Alert message={alertMessage} onClose={handleAlertClose} />
       )}
-      <div className="container grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 py-20">
+      <div className="container grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 py-10 md:py-20">
         {[...products].map(({ node }) => {
           const isInCart = isProductInCart(node.id)
           const quantity = getProductFromCart(node.id)?.quantity || 0
