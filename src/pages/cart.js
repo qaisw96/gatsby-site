@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import Layout from "../components/layout"
 import { getCart, removeFromCart, clearCart } from "../utils/cart"
 import Empty from "../components/Empty"
@@ -13,6 +13,8 @@ const Cart = () => {
   const [successMessage, setSuccessMessage] = useState("")
   const [loading, setLoading] = useState(false)
   const [isModalVisible, setIsModalVisible] = useState(false)
+
+  const formRef = useRef(null)
 
   useEffect(() => {
     setCartItems(getCart())
@@ -31,7 +33,7 @@ const Cart = () => {
 
     const items = cartItems.map(item => ({
       sys: { id: item.id },
-      fields: {
+      itemDetails: {
         title: { "en-US": item.title },
         price: { "en-US": item.price },
         quantity: { "en-US": item.quantity },
@@ -39,7 +41,7 @@ const Cart = () => {
     }))
 
     const payload = {
-      fields: {
+      orderDetails: {
         name: { "en-US": name },
         location: { "en-US": location },
         mobileNumber: { "en-US": mobileNumber },
@@ -95,6 +97,10 @@ const Cart = () => {
     if (successMessage === "تم إرسال الطلب بنجاح!") return
 
     setIsOrderFormVisible(prev => !prev)
+
+    setTimeout(() => {
+      formRef.current?.scrollIntoView({ behavior: "smooth" })
+    }, 100)
   }
 
   return (
@@ -128,6 +134,7 @@ const Cart = () => {
               }
               transition={{ duration: 0.3 }}
               className="overflow-hidden mt-4"
+              ref={formRef}
             >
               {isOrderFormVisible && (
                 <OrderForm onSubmit={onSubmitOrderForm} loading={loading} />

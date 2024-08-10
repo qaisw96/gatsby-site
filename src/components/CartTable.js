@@ -1,5 +1,6 @@
 import React from "react"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import { Link } from "gatsby"
 
 const CartTable = ({ cartItems, handleRemove }) => {
   return (
@@ -16,13 +17,15 @@ const CartTable = ({ cartItems, handleRemove }) => {
         {cartItems.map(item => (
           <tr key={item.id}>
             <td className="border p-2 relative">
-              {item.images && (
-                <GatsbyImage
-                  image={getImage(item.images[0])}
-                  alt={item.title}
-                  className="w-16 h-16"
-                />
-              )}
+              <Link to={`/products/${item.id}`}>
+                {item.images && (
+                  <GatsbyImage
+                    image={getImage(item.images[0])}
+                    alt={item.title}
+                    className="w-16 h-16"
+                  />
+                )}
+              </Link>
               <span className="absolute top-0 right-1 md:right-16 rounded-full p-1 bg-slate-300 w-7 h-7 text-center mb-[-3]">
                 {item.quantity}
               </span>

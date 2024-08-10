@@ -1,19 +1,16 @@
-/**
- * Layout component that queries for data
- * with Gatsby's useStaticQuery component
- *
- * See: https://www.gatsbyjs.com/docs/how-to/querying-data/use-static-query/
- */
-
 import * as React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import { PiWhatsappLogoThin } from "react-icons/pi"
+import { motion } from "framer-motion"
 
 import Header from "./header"
-import "./layout.css"
 import Footer from "./Footer"
+import "./layout.css"
+import { useLocation } from "@reach/router"
 
 const Layout = ({ children }) => {
+  const location = useLocation()
+
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -23,6 +20,12 @@ const Layout = ({ children }) => {
       }
     }
   `)
+
+  const variants = {
+    hidden: { opacity: 0 },
+    enter: { opacity: 1 },
+    exit: { opacity: 0 },
+  }
 
   return (
     <>
@@ -34,7 +37,16 @@ const Layout = ({ children }) => {
           padding: `var(--size-gutter)`,
         }}
       >
-        <main>{children}</main>
+        <motion.main
+          key={location.pathname}
+          initial="hidden"
+          animate="enter"
+          exit="exit"
+          variants={variants}
+          transition={{ type: "tween", duration: 0.5 }}
+        >
+          {children}
+        </motion.main>
         <Footer />
       </div>
       <a
