@@ -20,7 +20,6 @@ const ProductList = ({ products }) => {
   }, [])
 
   const handleAddToCart = product => {
-    console.log({ product })
     addToCart(product)
     setCartItems(getCart())
     setAlertMessage("تم إضافة المنتج إلى السلة!")

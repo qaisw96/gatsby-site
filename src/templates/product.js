@@ -15,6 +15,7 @@ import {
   updateCartQuantity,
   getCart,
 } from "../utils/cart"
+import Alert from "../components/Alert"
 
 const Product = ({ data, pageContext }) => {
   const product = data.allContentfulProducts.edges[0]
@@ -69,12 +70,19 @@ const Product = ({ data, pageContext }) => {
     setCartItems(getCart())
   }
 
+  const handleAlertClose = () => {
+    setAlertMessage("")
+  }
+
   return (
     <Layout>
+      {alertMessage && (
+        <Alert message={alertMessage} onClose={handleAlertClose} />
+      )}
       <div
         className="container flex flex-col md:flex-row py-14 justify-center gap-8"
         style={{ justifyContent: "center" }}
-        onMouseEnter={() => setHoveredProduct(product.id)}
+        onMouseEnter={() => setHoveredProduct(product.node.id)}
         onMouseLeave={() => setHoveredProduct(null)}
       >
         <div className="flex-1">
@@ -90,6 +98,7 @@ const Product = ({ data, pageContext }) => {
                 fontSize: 15,
                 fontWeight: 300,
                 marginTop: 30,
+                maxWidth: 600,
               }}
             >
               {documentToReactComponents(JSON.parse(description), options)}
@@ -106,6 +115,7 @@ const Product = ({ data, pageContext }) => {
             hoveredProduct={hoveredProduct}
             setHoveredProduct={setHoveredProduct}
             productId={product.node.id}
+            isProductPage
           />
         </div>
       </div>

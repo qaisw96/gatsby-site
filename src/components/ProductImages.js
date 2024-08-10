@@ -2,6 +2,7 @@ import React from "react"
 import { useState } from "react"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import { motion } from "framer-motion"
+import clsx from "clsx"
 
 const ProductImages = ({ images }) => {
   const [selectedImage, setSelectedImage] = useState(images[0])
@@ -27,11 +28,13 @@ const ProductImages = ({ images }) => {
           {images.map((image, index) => (
             <motion.div
               key={image.id}
-              className={`w-16 h-16 cursor-pointer border-2 rounded-sm ${
-                selectedImage.id === image.id
-                  ? "border-primary"
-                  : "border-transparent"
-              } hover:border-blue-500 transition-all duration-300`}
+              className={clsx(
+                "w-16 h-16 cursor-pointer border-2 rounded-sm hover:border-blue-500 transition-all duration-300",
+                {
+                  "border-primary": selectedImage.id === image.id,
+                  "border-transparent": selectedImage.id !== image.id,
+                }
+              )}
               onClick={() => setSelectedImage(image)}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}

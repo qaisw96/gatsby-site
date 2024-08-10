@@ -1,4 +1,5 @@
 // src/components/Empty.js
+import clsx from "clsx"
 import React from "react"
 
 const Empty = ({
@@ -8,10 +9,10 @@ const Empty = ({
 }) => {
   return (
     <div
-      className={
-        "flex flex-col justify-center items-center h-screen mt-[-100px] " +
+      className={clsx(
+        "flex flex-col justify-center items-center h-screen mt-[-100px]",
         style
-      }
+      )}
     >
       <svg
         className="w-16 h-16 mb-4 text-gray-400"

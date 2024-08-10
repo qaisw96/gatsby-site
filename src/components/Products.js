@@ -11,6 +11,7 @@ import {
   updateCartQuantity,
 } from "../utils/cart"
 import Alert from "./Alert"
+import clsx from "clsx"
 
 const Products = ({ products }) => {
   const [alertMessage, setAlertMessage] = useState("")
@@ -79,9 +80,10 @@ const Products = ({ products }) => {
                 </p>
                 <div className="text-center relative">
                   <button
-                    className={`text-sm rounded-sm mt-2 py-3 w-full ${
-                      isInCart ? "bg-primary text-white" : "bg-third"
-                    }`}
+                    className={clsx("text-sm rounded-sm mt-2 py-3 w-full", {
+                      "bg-primary text-white": isInCart,
+                      "bg-third": !isInCart,
+                    })}
                     onClick={() =>
                       isInCart ? handleRemove(node.id) : handleAddToCart(node)
                     }
@@ -95,11 +97,17 @@ const Products = ({ products }) => {
 
                   {isInCart && (
                     <motion.div
-                      className={`absolute top-0 left-0 right-0 h-full flex justify-between items-center px-2 ${
-                        hoveredProduct === node.id || window.innerWidth < 768
-                          ? "opacity-100 pointer-events-auto"
-                          : "opacity-0 pointer-events-none"
-                      } transition-opacity duration-300`}
+                      className={clsx(
+                        "absolute top-0 left-0 right-0 h-full flex justify-between items-center px-2 transition-opacity duration-300",
+                        {
+                          "opacity-100 pointer-events-auto":
+                            hoveredProduct === node.id ||
+                            window.innerWidth < 768,
+                          "opacity-0 pointer-events-none":
+                            hoveredProduct !== node.id &&
+                            window.innerWidth >= 768,
+                        }
+                      )}
                     >
                       <motion.button
                         className="text-white bg-secondary px-2 rounded-sm h-fit mt-2"

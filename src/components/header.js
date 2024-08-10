@@ -62,7 +62,6 @@ const Header = () => {
           />
         </div>
         <Link to="/" className="flex gap-2 items-center">
-          {/* <MdStorefront size={28} color="white" /> */}
           {logoImage && (
             <GatsbyImage image={logoImage} alt="Logo" className="w-16 h-auto" />
           )}
@@ -75,7 +74,7 @@ const Header = () => {
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
             />
-            <button type="submit" className="bg-[#3e4756] h-12 px-2 rounded-sm">
+            <button type="submit" className="bg-secondary h-12 px-2 rounded-sm">
               <IoIosSearch
                 size={24}
                 color="white"
@@ -88,7 +87,6 @@ const Header = () => {
           to={"/cart"}
           className="flex md:gap-2 p-1 md:py-2 md:px-3 items-center bg-[rgba(0,0,0,.2)]"
         >
-          {/* <h3 className="text-white md:hidden">{cartItems.length}</h3> */}
           <div className="p-2 rounded-sm h-full relative">
             <span className="w-3 h-3 bg-[#07b5ff] absolute rounded-full" />
             <FaCartShopping size={25} color="white" />
@@ -115,7 +113,7 @@ const Header = () => {
               />
               <button
                 type="submit"
-                className="ml-2 bg-[#3e4756] h-10 px-2 rounded-sm"
+                className="ml-2 bg-secondary h-10 px-2 rounded-sm"
               >
                 <IoIosSearch
                   size={24}

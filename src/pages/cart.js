@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react"
 import Layout from "../components/layout"
 import { getCart, removeFromCart, clearCart } from "../utils/cart"
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import Empty from "../components/Empty"
 import { motion } from "framer-motion"
 import OrderForm from "../components/OrderForm"
 import CartTable from "../components/CartTable"
+import Modal from "../components/Modal"
 
 const Cart = () => {
-  console.log(process.env.GATSBY_CONTENTFUL_SPACE_ID)
   const [cartItems, setCartItems] = useState([])
   const [isOrderFormVisible, setIsOrderFormVisible] = useState(false)
   const [successMessage, setSuccessMessage] = useState("")
   const [loading, setLoading] = useState(false)
+  const [isModalVisible, setIsModalVisible] = useState(false)
 
   useEffect(() => {
     setCartItems(getCart())
@@ -23,22 +23,6 @@ const Cart = () => {
       }
     }
   }, [successMessage])
-
-  const handleRemove = productId => {
-    removeFromCart(productId)
-    setCartItems(getCart())
-  }
-
-  const handleClearCart = () => {
-    clearCart()
-    setCartItems([])
-  }
-
-  const handleOrderClick = () => {
-    if (successMessage === "تم إرسال الطلب بنجاح!") return
-
-    setIsOrderFormVisible(prev => !prev)
-  }
 
   const onSubmitOrderForm = async data => {
     setLoading(true)
@@ -92,6 +76,27 @@ const Cart = () => {
     }
   }
 
+  const handleRemove = productId => {
+    removeFromCart(productId)
+    setCartItems(getCart())
+  }
+
+  const handleClearCart = () => {
+    setIsModalVisible(true)
+  }
+
+  const handleConfirmClearCart = () => {
+    clearCart()
+    setCartItems([])
+    setIsModalVisible(false)
+  }
+
+  const handleOrderClick = () => {
+    if (successMessage === "تم إرسال الطلب بنجاح!") return
+
+    setIsOrderFormVisible(prev => !prev)
+  }
+
   return (
     <Layout>
       <div className="container py-20 min-h-screen">
@@ -140,6 +145,12 @@ const Cart = () => {
           />
         )}
       </div>
+      <Modal
+        isVisible={isModalVisible}
+        onClose={() => setIsModalVisible(false)}
+        onConfirm={handleConfirmClearCart}
+        message="هل أنت متأكد أنك تريد مسح السلة؟"
+      />
     </Layout>
   )
 }

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react"
 import { graphql, useStaticQuery, Link } from "gatsby"
+import clsx from "clsx"
 
 const Categories = ({ categoryId }) => {
   const data = useStaticQuery(graphql`
@@ -42,9 +43,12 @@ const Categories = ({ categoryId }) => {
           <Link
             to={`/products-by-category/${node.id}`}
             key={node.id}
-            className={`border border-primary px-4 py-1 md:py-2 md:px-10 rounded-full whitespace-nowrap cursor-pointer ${
-              node.id === categoryId ? "bg-primary text-white" : ""
-            }`}
+            className={clsx(
+              "border border-primary px-4 py-1 md:py-2 md:px-10 rounded-full whitespace-nowrap cursor-pointer",
+              {
+                "bg-primary text-white": node.id === categoryId,
+              }
+            )}
             ref={el => (categoryRefs.current[index] = el)}
           >
             <h3>{node.name}</h3>

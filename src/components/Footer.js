@@ -22,7 +22,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="text-center py-3 bg-third">
-        <p className="text-[#3e4756]">جميع الحقوق محفوظة © 2024</p>
+        <p className="text-secondary">جميع الحقوق محفوظة © 2024</p>
       </div>
     </div>
   )
