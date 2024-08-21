@@ -25,6 +25,7 @@ const ProductCard = ({
             image={getImage(product.images[0])}
             alt={product.title}
             className="w-full"
+            style={{ maxHeight: 300 }}
           />
         </Link>
       )}

@@ -9,12 +9,18 @@ import Categories from "../components/Categories"
 import Products from "../components/Products"
 import Empty from "../components/Empty"
 import ProductList from "../components/ProductList"
+import { parseOffers } from "../utils/cart"
 
 const IndexPage = ({ data, location }) => {
   const urlParams = new URLSearchParams(location.search)
-  const cart = urlParams.get("cart")
 
-  const products = data.allContentfulProducts.edges
+  const products = data.allContentfulProducts.edges.map(product => ({
+    node: {
+      ...product.node,
+      offers: parseOffers(product.node.offers),
+      optimalPrice: product.node.price,
+    },
+  }))
 
   return (
     <Layout>
@@ -39,6 +45,7 @@ export const query = graphql`
             id
             name
           }
+          offers
         }
       }
     }
