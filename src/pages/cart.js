@@ -14,6 +14,8 @@ const Cart = () => {
   const [loading, setLoading] = useState(false)
   const [isModalVisible, setIsModalVisible] = useState(false)
 
+  const totalPrice = cartItems.reduce((acc, item) => item.optimalPrice + acc, 0)
+
   const formRef = useRef(null)
 
   useEffect(() => {
@@ -110,6 +112,10 @@ const Cart = () => {
         {cartItems.length ? (
           <>
             <CartTable cartItems={cartItems} handleRemove={handleRemove} />
+            <div className="mt-2">
+              <h3 className="text-xl">المجموع: {totalPrice} دينار</h3>
+              <h3 className="mt-2">* يضاف أجرة التوصيل دينارين</h3>
+            </div>
             <div className="flex gap-4 mt-4">
               <button
                 className="bg-red-500 text-white py-2 px-4 rounded mt-4"

@@ -31,7 +31,7 @@ const CartTable = ({ cartItems, handleRemove }) => {
               </span>
             </td>
             <td className="border p-2">{item.title}</td>
-            <td className="border p-2">{item.price} دينار</td>
+            <td className="border p-2">{item.optimalPrice} دينار</td>
             <td className="border p-2">
               <button
                 className="text-red-500"
