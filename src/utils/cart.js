@@ -61,16 +61,56 @@ export const getProductFromCart = productId => {
 }
 
 export const updateCartQuantity = (productId, change) => {
-  console.log({productId, change})
   if (typeof window !== "undefined") {
     const cart = getCart()
     const updatedCart = cart
       .map(item =>
         item.id === productId
-          ? { ...item, quantity: item.quantity + change }
+          ? {
+              ...item,
+              quantity: item.quantity + change,
+              optimalPrice: calculateOptimalPrice(
+                item.offers,
+                item.quantity + change
+              ),
+            }
           : item
       )
       .filter(item => item.quantity > 0) // Remove items with quantity 0
     localStorage.setItem("cart", JSON.stringify(updatedCart))
   }
+}
+
+export const parseOffers = offersString => {
+  if (!offersString) return null
+  return offersString.split(",").reduce((acc, offer) => {
+    const [quantity, price] = offer.split(":").map(item => item.trim())
+    acc[quantity] = parseFloat(price)
+    return acc
+  }, {})
+}
+
+export const calculateOptimalPrice = (offers, quantity) => {
+  // Sort offers by price per item (cheapest first)
+  const sortedOffers = Object.entries(offers).sort(
+    ([qtyA, priceA], [qtyB, priceB]) => priceA / qtyA - priceB / qtyB
+  )
+
+  let totalQuantity = quantity
+  let totalPrice = 0
+
+  // Greedily apply offers from best to worst
+  for (const [offerQuantity, offerPrice] of sortedOffers) {
+    const numOffers = Math.floor(totalQuantity / offerQuantity)
+    totalPrice += numOffers * offerPrice
+    totalQuantity -= numOffers * offerQuantity
+  }
+
+  // Handle any remaining items without a specific offer
+  if (totalQuantity > 0) {
+    const [smallestQty, smallestPrice] = sortedOffers[0]
+    totalPrice += (totalQuantity / smallestQty) * smallestPrice
+  }
+
+  return totalPrice
 }

@@ -41,6 +41,14 @@ const Product = ({ data, pageContext }) => {
       [BLOCKS.HR]: (node, children) => (
         <hr style={{ marginTop: 14, marginBottom: 14 }} />
       ),
+      [BLOCKS.TABLE]: (node, children) => (
+        <table
+          className="w-full border-collapse border-gray-600"
+          style={{ direction: "ltr", textAlign: "end" }}
+        >
+          {children}
+        </table>
+      ),
     },
   }
 
@@ -134,9 +142,6 @@ export const query = graphql`
           images {
             id
             gatsbyImageData(layout: CONSTRAINED, width: 300)
-          }
-          description {
-            description
           }
           content {
             raw

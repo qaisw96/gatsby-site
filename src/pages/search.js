@@ -16,9 +16,6 @@ const SearchPage = ({ location }) => {
           node {
             id
             title
-            description {
-              description
-            }
             price
             images {
               gatsbyImageData(layout: CONSTRAINED, width: 300)
@@ -33,11 +30,11 @@ const SearchPage = ({ location }) => {
 
   const filteredProducts = products.filter(({ node }) => {
     const term = searchTerm.toLowerCase()
-    return (
-      node.title.toLowerCase().includes(term) ||
-      (node.description?.description &&
-        node.description.description.toLowerCase().includes(term))
-    )
+    return node.title.toLowerCase().includes(term)
+    // ||
+    // (node.description?.description
+    //   &&
+    //   node.description.description.toLowerCase().includes(term))
   })
 
   return (
